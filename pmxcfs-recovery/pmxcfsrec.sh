@@ -151,5 +151,13 @@ then
     echo "Stopping pve-cluster service.."
     systemctl stop pve-cluster.service
 
+    pkill pmxcfs
+
+    while :
+    do
+        [[ ! "$(pgrep pmxcfs)" ]] && break
+        echo "Waiting for pmxcfs to stop.."
+    done
+
     restore
 fi
